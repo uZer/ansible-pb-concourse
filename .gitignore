@@ -1,0 +1,5 @@
+*.retry
+roles/*
+.build
+.keys
+concourse_pipelines/*

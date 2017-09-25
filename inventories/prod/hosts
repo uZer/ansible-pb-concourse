@@ -1,0 +1,8 @@
+[thecoreci:vars]
+instance=thecoreci
+
+[thecoreci]
+thecore
+
+[concourse-web]
+thecore

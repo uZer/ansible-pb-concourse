@@ -1,0 +1,16 @@
+---
+- src: uZer.packages
+  version: latest
+
+- src: uZer.install-docker
+  version: latest
+
+- src: uZer.install-dockercompose
+  version: latest
+
+- src: uZer.deploy-dockercompose
+  version: latest
+
+- src: uZer.concourse
+  version: latest
+

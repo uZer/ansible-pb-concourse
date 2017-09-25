@@ -1,0 +1,5 @@
+---
+- include: pb_docker_______common.yml
+- include: pb_concourse____deploy.yml
+- include: pb_concourse____config.yml
+# vim:ft=ansible:

@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  concourse-worker:
+    image: concourse/concourse
+    privileged: true
+    # links:
+      # - concourse-web
+    # depends_on:
+      # - concourse-web
+    command: worker
+    volumes:
+      - "./keys:/concourse-keys"
+    environment:
+      CONCOURSE_TSA_HOST: "{{ vault_concourse_config[instance].tsa_host }}"

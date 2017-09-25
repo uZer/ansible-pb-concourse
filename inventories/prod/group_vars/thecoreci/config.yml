@@ -1,0 +1,4 @@
+---
+concourse_pipelines:
+  - name: main
+    expose: no

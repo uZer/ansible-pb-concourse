@@ -1,0 +1,29 @@
+---
+- name: Create concourse files
+  gather_facts: no
+  hosts: all
+  connection: local
+  tasks:
+    - name: Build docker-compose service folder
+      file:
+        path: ".build/{{ instance }}/{{ inventory_hostname }}//{{ item }}"
+        state: directory
+      delegate_to: localhost
+      with_items:
+        - "{{ docker_services }}"
+
+    - name: link ssh keys in docker-compose folder (will be copied)
+      file:
+        src: "../../../../.keys/{{ instance }}/{{ item }}"
+        dest: ".build/{{ instance }}/{{ inventory_hostname }}/{{ item }}/keys"
+        state: link
+      with_items:
+        - "{{ docker_services }}"
+
+- name: Deploy Concourse
+  hosts: all
+  vars_files:
+    - vault.yml
+  roles:
+    - role: uZer.deploy-dockercompose
+# vim:ft=ansible:

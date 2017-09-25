@@ -1,0 +1,8 @@
+---
+- name: Bootstrap concourse hosts
+  hosts: all
+  become: yes
+  roles:
+    - role: uZer.install-docker
+    - role: uZer.install-dockercompose
+# vim:ft=ansible:

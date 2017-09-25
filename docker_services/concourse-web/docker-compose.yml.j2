@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  concourse-db:
+    image: "postgres:{{ vault_concourse_config[instance].postgres_version }}"
+    environment:
+      POSTGRES_DB:                    "{{ vault_concourse_config[instance].postgres_db }}"
+      POSTGRES_USER:                  "{{ vault_concourse_config[instance].postgres_user }}"
+      POSTGRES_PASSWORD:              "{{ vault_concourse_config[instance].postgres_password }}"
+      PGDATA:                         "/data/concourse-db/database"
+
+  concourse-web:
+    image: concourse/concourse
+    links:
+      - concourse-db
+    command: web
+    depends_on:
+      - concourse-db
+    ports:
+      - "80:8080"
+      - "2222:2222"
+    volumes:
+      - "./keys:/concourse-keys"
+    restart: unless-stopped # required so that it retries until concourse-db comes up
+    environment:
+      CONCOURSE_BASIC_AUTH_USERNAME:  "{{ vault_concourse_config[instance].basic_auth_username }}"
+      CONCOURSE_BASIC_AUTH_PASSWORD:  "{{ vault_concourse_config[instance].basic_auth_password }}"
+      CONCOURSE_POSTGRES_HOST:        concourse-db
+      CONCOURSE_POSTGRES_DATABASE:    "{{ vault_concourse_config[instance].postgres_db }}"
+      CONCOURSE_POSTGRES_USER:        "{{ vault_concourse_config[instance].postgres_user }}"
+      CONCOURSE_POSTGRES_PASSWORD:    "{{ vault_concourse_config[instance].postgres_password }}"
+      CONCOURSE_EXTERNAL_URL:         "{{ vault_concourse_config[instance].url }}"
