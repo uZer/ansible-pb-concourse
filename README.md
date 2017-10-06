@@ -20,7 +20,7 @@ Fetch concourse pipelines with:
 
    ./get_pipelines.sh
 
-Create a vault pass file with vault password in `../vaultpass/ansible-pb-concourse.key`
+Create a vault pass file with vault password in `~/.vaultpass/ypi/ansible-pb-concourse.key`
 
 
 ### Usage
